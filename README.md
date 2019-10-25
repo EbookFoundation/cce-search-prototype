@@ -47,7 +47,7 @@ After activation, your shell prompt should change to reflect the environment you
 
 ### Deactivating the virtual environment
 
-**Always do this before doing any development work, otherwise your other Python work will screw up the project!**
+**Always do this when you're finished working, otherwise your other Python work will screw up the project!**
 
 #### Mac/Linux
 
