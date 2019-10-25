@@ -49,10 +49,4 @@ After activation, your shell prompt should change to reflect the environment you
 
 **Always do this when you're finished working, otherwise your other Python work will screw up the project!**
 
-#### Mac/Linux
-
-`source venv/bin/deactivate`
-
-#### Windows
-
-`venv\Scripts\deactivate.bat`
+`deactivate`
