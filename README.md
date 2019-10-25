@@ -13,11 +13,11 @@ Using a virtual environment is very important for ensuring that all work is done
 
 ### Creating a new virtual environment
 
-You shouldn't have to do this. However, in case something happens and the venv needs to be rebuilt, run the command:
+**Do this the first time you download the source code, in the root project directory.**
 
-`python3 -m venv env`
+`python3 -m venv venv`
 
-This will create a virtual environment in the directory `env/`.
+This will create a virtual environment in the directory `venv/`. It is very important that you use this same name!
 
 ### Activating the virtual environment
 
@@ -27,11 +27,11 @@ After activation, your shell prompt should change to reflect the environment you
 
 #### Mac/Linux
 
-`source env/bin/activate`
+`source venv/bin/activate`
 
 #### Windows
 
-`env\Scripts\activate.bat`
+`venv\Scripts\activate.bat`
 
 ### Installing required packages
 
@@ -51,8 +51,8 @@ After activation, your shell prompt should change to reflect the environment you
 
 #### Mac/Linux
 
-`source env/bin/deactivate`
+`source venv/bin/deactivate`
 
 #### Windows
 
-`env\Scripts\deactivate.bat`
+`venv\Scripts\deactivate.bat`
