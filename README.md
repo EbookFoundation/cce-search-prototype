@@ -57,7 +57,7 @@ After activating the virtual environment, run the following command from within 
 
 `gunicorn -w=4 wsgi:app`
 
-This will run the Flask application on a Gunicorn WSGI server. You can then go to [localhost:8080](localhost:8080) to use the application.
+This will run the Flask application on a Gunicorn WSGI server. You can then go to [localhost:8000](localhost:8000) to use the application.
 
 To close the application, end the process with `ctrl-c` in your terminal. 
 
