@@ -5,51 +5,64 @@ An unofficial, experimental interface to search records digitized by NYPL's
 
 Forked from Sean Redmond's [original protype](https://github.com/seanredmond/cce-search-prototype).
 
-## Setting up the virtual environment
+## Required software
 
-Using a virtual environment is very important for ensuring that all work is done in a standardized Python environment. This is a quick and dirty guide to working with the virtual environment. For a more detailed guide, read [this](https://docs.python.org/3.7/tutorial/venv.html). 
+- Python 3.7
+- Pipenv
 
-*Note: these commands all assume your system refers to your Python 3 installation as `python3`. On your system it may be different. You should confirm this before you try these commands.*
+## Using Pipenv
 
-### Creating a new virtual environment
+Using a virtual environment is very important for ensuring that all work is done in a standardized Python environment. In order to simplify using a virtual environment as well as to give us the ability to create deterministic builds, we use [Pipenv](https://realpython.com/pipenv-guide/).
 
-**Do this the first time you download the source code, in the root project directory.**
+### Installing Pipenv
 
-`python3 -m venv venv`
+#### Mac
 
-This will create a virtual environment in the directory `venv/`. It is very important that you use this same name!
+`brew install pipenv`
+
+*Note: Mac users can also install through pip, but using Homebrew is recommended.*
+
+#### Other systems
+
+`pip install --user pipenv`
+
+### First time package install
+
+Run `pipenv install` in the project's main directory.
+
+### Installing new packages
+
+In the project directory, use `pipenv install` the same way you would use `pip install`. The package will be installed in the virtual environment, and the Pipfile will be updated.
+
+For example, to install the package requests: `pipenv install requests`
+
+To specify a specific package version: `pipenv install flask==0.12.1`
+
+To install packages for development purposes (e.g. ones that aren't required to build and run the project, but are useful for working on it), you can use the --dev flag. For example, `pipenv install pytest --dev`. 
 
 ### Activating the virtual environment
 
-**Always do this before doing any development work!**
+To activate the virtual environment in your current shell, run `pipenv shell`. The virtual environment will be indicated by a change to your terminal prompt.
 
-After activation, your shell prompt should change to reflect the environment you are working in.
+### "Locking" the virtual environment
 
-#### Mac/Linux
+To ensure a deterministic build and "lock" the versions of packages and their subdependencies, run `pipenv lock`. This will ensure Pipfile.lock is up to date. Do this when any changes are made for the production environment.
 
-`source venv/bin/activate`
+### Remove an unneeded package
 
-#### Windows
+To remove a package from the Pipfile and uninstall it from your virtual environment, use `pipenv uninstall`.
 
-`venv\Scripts\activate.bat`
+For example, to remove beautifulsoup: `pipenv uninstall beautifulsoup`
 
-### Installing required packages
+### Run a command in the virtual environment without activating it
 
-**Do this the first time you work on the project (after activating the venv).**
+`pipenv run [command_goes_here]`
 
-`pip install -r requirements.txt`
+### Closing the virtual environment
 
-### Regenerating `requirements.txt`
+After you have activated the virtual environment, press `ctrl-d` to exit. Your terminal prompt should return to its original appearance.
 
-**Do this whenever you install a new package for this package.**
-
-`pip freeze > requirements.txt`
-
-### Deactivating the virtual environment
-
-**Always do this when you're finished working, otherwise your other Python work will screw up the project!**
-
-`deactivate`
+**Always do this when you're finished working in the virtual environment, otherwise your other Python work will screw up the project!**
 
 ## Deploying the project locally
 
@@ -62,5 +75,6 @@ This will run the Flask application on a Gunicorn WSGI server. You can then go t
 To close the application, end the process with `ctrl-c` in your terminal. 
 
 **TODO:**
-* Update Gunicorn config file to automatically specify number of worker processes
-* Use nginx to keep Gunicorn behind proxy server, as seen [here](https://gunicorn.org/#deployment)
+
+- Update Gunicorn config file to automatically specify number of worker processes
+- Use nginx to keep Gunicorn behind proxy server, as seen [here](https://gunicorn.org/#deployment)
