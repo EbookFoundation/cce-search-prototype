@@ -20,11 +20,13 @@ Using a virtual environment is very important for ensuring that all work is done
 
 `brew install pipenv`
 
-*Note: Mac users can also install through pip, but using Homebrew is recommended.*
+*Note: Mac users can also install through Pip, but using Homebrew is recommended.*
 
 #### Other systems
 
 `pip install --user pipenv`
+
+*Note: You may have versions of Pip installed for both Python 2 and 3. If so, your Python 3 Pip will be called pip3. Check if this is the case by running `pip --version` and `pip3 --version`.*
 
 ### First time package install
 
