@@ -79,4 +79,4 @@ To close the application, end the process with `ctrl-c` in your terminal.
 **TODO:**
 
 - Update Gunicorn config file to automatically specify number of worker processes
-- Use nginx to keep Gunicorn behind proxy server, as seen [here](https://gunicorn.org/#deployment)
+- Address reinstallation of venv (pipenv --rm, pipenv install)
