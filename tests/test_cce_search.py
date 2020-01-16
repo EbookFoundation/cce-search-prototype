@@ -1,4 +1,4 @@
-from cce_search import cce_search
+from cce_search import cce_search # This is incorrect, cce_search is not an importable module
 
 import pytest
 
