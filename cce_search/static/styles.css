@@ -1,44 +1,130 @@
-.info-card {
-    border: 2px solid black;
-    border-radius: 1em;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
 }
 
-.info-card dt {
-    font-weight: bold;
+.body{
+  /* background-image: url("background-gray.png"); */
+  background-image: url("books.jpg");
+  background-size: cover;
+  /* background-image: linear-gradient(#475059,#cad5e0, #475059); */
+  margin:0px;
+  padding:30px 0px;
 }
 
-.info-card dd {
-    padding-bottom: 0.5em;
-}
-
-.info-card ul.child-renewal {
-    padding-left: 0;
-}
-
-fieldset.usa-fieldset legend {
-    margin-bottom: 8px;
-}
-
-.pagination {
+.search {
+    /* position:relative; */
+    width: fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 30px 20px;
+    /* padding-top:10%; */
+    background-color:#E4E6E9;
+    border: solid #969FAA 8px;
+    border-radius: 46px;
     text-align: center;
 }
-
-nav.pagination {
-    margin-bottom: 1rem;
+.search p {
+  line-height: 1.5em;
+  width: 75%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-nav.pagination li {
-    display: inline-block;
-    padding: 0 1em;
+h1{
+  margin:0px;
 }
 
-header {
-    margin-top: 1rem;
-    padding-bottom: 1rem;
+input {
+  width: 80%;
+  height:30px;
+  padding-left: 5px;
+  margin-bottom:10px;
 }
 
-.usa-logo {
-    margin-top: 0;
+button{
+  width: 10%;
+  border-radius: 5px;
+  margin-top:10px;
+}
+
+.header {
+  background: black;
+  /* padding:2%; */
+  padding-left: 10px;
+  overflow: hidden;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+.totheleft{
+    float:left;
+    color:white;
+    font-size:40px;
+    text-align:center;
+    padding: 10px 10px;
+    text-decoration: none;
+}
+.totheright {
+    float:right;
+    color:white;
+    font-size:20px;
+    text-align:center;
+    padding: 20px 20px;
+    text-decoration: none;
+}
+
+.totheright a {
+    color:white;
+    text-decoration:none;
+    padding-right: 15px
+}
+
+
+
+/* FOR THE RESULTS PAGE */
+
+.results {
+    /* position:relative; */
+    width: 80%;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 30px 20px;
+    /* padding-top:10%; */
+    background-color:#E4E6E9;
+    border: solid #969FAA 4px;
+    border-radius: 46px;
+}
+
+.title {
+    width: fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 10px 20px;
+    /* padding-top:10%; */
+    background-color:#E4E6E9;
+    border: solid #969FAA 4px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* FOR THE ABOUT PAGE */
+
+.about {
+  /* position:relative; */
+  width: 65%;
+  margin-left:auto;
+  margin-right:auto;
+  padding: 30px 20px;
+  /* padding-top:10%; */
+  background-color:#E4E6E9;
+  border: solid #969FAA 8px;
+  border-radius: 46px;
+  text-align: center;
+}
+.about p {
+line-height: 1.5em;
+width: 95%;
+margin-left:auto;
+margin-right:auto;
 }
