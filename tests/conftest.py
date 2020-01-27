@@ -28,7 +28,3 @@ def app():
 @pytest.fixture
 def client(app):
     return app.test_client()
-
-# TODO: Possible functions/features to test:
-#       - Constructing app without errors (overall integration test)
-#       - Search results (feature test)
