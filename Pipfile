@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 pytest = "*"
+rope = "*"
 
 [packages]
 certifi = "==2019.6.16"
@@ -20,6 +21,7 @@ Flask = "==1.1.1"
 Jinja2 = "==2.10.1"
 MarkupSafe = "==1.1.1"
 Werkzeug = "==0.15.4"
+beautifulsoup4 = "*"
 
 [requires]
 python_version = "3.7"
