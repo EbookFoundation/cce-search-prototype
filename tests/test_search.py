@@ -9,12 +9,28 @@ def test_search_page(client):
     page = BeautifulSoup(res.data, 'html.parser')
     assert page.title.string == "Find Copyright Entries - CCE Search"
 
-# Test that a successful search yields results
-def test_search_functioning(client):
+# Test that a successful full text search yields results
+def test_successful_full_text_search(client):
     # Search for a title that we know will result in numerous matches
     res = client.get("/?type=ft&term=I+Ching")
     assert res.status_code == 200
-    page = BeautifulSoup(res.data, 'html.parser')
-    # print(page.prettify())
-    # print(page.title)
-    assert res.status_code == 200
+    # Search for the existence of <h2>Results</h2>
+    assert b'<h2>Results</h2>' in res.data
+    # TODO: Convert to more intelligent solution using beautiful soup?
+    # page = BeautifulSoup(res.data, 'html.parser')
+
+# Test an unsuccessful full text search
+def test_unsuccessful_full_text_search(client):
+    # Search for a nonexistent title
+    res = client.get("/?type=ft&term=blahblahblahblahblahblah")
+    result_page = BeautifulSoup(res.data, 'html.parser')
+    home_res = client.get("/")
+    home_page = BeautifulSoup(home_res.data, 'html.parser')
+    assert result_page.string == home_page.string
+
+# TODO: test_successful_registration_number_search(client)
+# TODO: test_unsuccessful_registration_number_search(client)
+# TODO: test_successful_renewal_number_search(client)
+# TODO: test_successful_renewal_number_search(client)
+
+
