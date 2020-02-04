@@ -1,17 +1,9 @@
-body, html {
-  height: 100%;
-}
 
 .bg{
   /* background-image: url("background-gray.png"); */
   background-image: url("books.jpg");
-
-  /* Full height */
-
+  height: 100%;
   
-  /* background-image: linear-gradient(#475059,#cad5e0, #475059); 
-  margin:0px;
-  padding:30px 0px;*/
 }
 
 .search {
