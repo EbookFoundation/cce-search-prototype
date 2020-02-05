@@ -1,8 +1,11 @@
-
+body, html {
+  height: 100%;
+}
 .bg{
   /* background-image: url("background-gray.png"); */
-  background: url('books.jpg') no-repeat center center fixed;
-  height:100vh;
+  background: url('books.jpg');
+  height:100%;
+  width:100%
   
 }
 
