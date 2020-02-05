@@ -15,31 +15,25 @@ def index():
     term = None
     paging=None
     search_type = "ft"
+    print("TEST HERE")
+    print(request.args)
+    print(request.method)
+
+    print("DONE PRINTING")
+    title = request.form.get('title')
+    print(title)
+    print("----------------------------------------------------------")
     if request.args:
-        term = request.args['term']
-        if request.args['type'] == 'ft':
-            response = search(request.args['term'], request.args.get('page'),
-                              request.args.get('per_page'))
-        elif request.args['type'] == 'reg':
-            search_type = "reg"
-            term = term.strip().upper()
-            response = reg_search(term,
-                                  request.args.get('page'),
-                                  request.args.get('per_page'))
-        else:
-            search_type = "ren"
-            term = term.strip().upper()
-            response = ren_search(term,
-                                  request.args.get('page'),
-                                  request.args.get('per_page'))
+        term = request.args['title']
+        response = search(request.args['type'], request.args.get('page'),
+                request.args.get('per_page'))
             
         paging = proc_pagination(response['data']['paging'],
                                  request.args.get('page'))
         results = proc_results(response)
     
     
-    return render_template('search/index.html', results=results, term=term,
-                           paging=paging, search_type=search_type)
+    return render_template('base.html', title=title)
 
 
 def proc_results(r):
