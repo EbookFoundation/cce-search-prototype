@@ -12,25 +12,28 @@ bp = Blueprint('search', __name__)
 @bp.route('/')
 def index():
     results = None
-    term = None
+    title = None
     paging=None
     search_type = "ft"
     print("TEST HERE")
     print(request.args)
+    print(request.args.get("title"))
     print(request.method)
 
     print("DONE PRINTING")
     title = request.form.get('title')
     print(title)
     print("----------------------------------------------------------")
-    if request.args:
-        term = request.args['title']
-        response = search(request.args['type'], request.args.get('page'),
+    if request.args.get("title"):
+        title = request.args['title']
+        response = search(request.args['title'], request.args.get('page'),
                 request.args.get('per_page'))
             
         paging = proc_pagination(response['data']['paging'],
                                  request.args.get('page'))
+                                
         results = proc_results(response)
+        print(results)
     
     
     return render_template('base.html', title=title)
@@ -41,7 +44,7 @@ def proc_results(r):
 
 
 def enhance_results(r):
-    if r.get('type') == 'renewal':
+    if r.get('title') == 'renewal':
         return r
 
     return {**r, **{'original': strip_tags(r.get('xml')),
