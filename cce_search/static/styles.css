@@ -1,12 +1,15 @@
 body, html {
-  height: 100%;
+  background: url('books.jpg') no-repeat;
+  background-size:cover;
+  /* height: 100%; */
 }
 .bg{
   /* background-image: url("background-gray.png"); */
-  background: url('books.jpg');
-  height:100%;
-  width:100%
-  
+  /* background: url('books.jpg') no-repeat; */
+  /* background-size:cover; */
+  /* height:fit-content; */
+  /* width:100%; */
+  /* padding: block; */
 }
 
 .search {
