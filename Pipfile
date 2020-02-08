@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
-pytest = "*"
 rope = "*"
 pytest-cov = "*"
 
@@ -13,7 +12,6 @@ pytest-cov = "*"
 certifi = "==2019.6.16"
 chardet = "==3.0.4"
 click = "==7.0"
-gunicorn = "==19.9.0"
 idna = "==2.8"
 itsdangerous = "==1.1.0"
 requests = "==2.22.0"
@@ -23,6 +21,7 @@ Jinja2 = "==2.10.1"
 MarkupSafe = "==1.1.1"
 Werkzeug = "==0.15.4"
 beautifulsoup4 = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"
