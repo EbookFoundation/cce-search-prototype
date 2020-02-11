@@ -18,22 +18,36 @@ def index():
     print("TEST HERE")
     print(request.args)
     print(request.args.get("title"))
-    print(request.method)
-
-    print("DONE PRINTING")
-    title = request.form.get('title')
     print(title)
     print("----------------------------------------------------------")
-    if request.args.get("title"):
-        title = request.args['title']
-        response = search(request.args['title'], request.args.get('page'),
+    
+
+    if request.args.get("renewal"):
+            print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
+            sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
                 request.args.get('per_page'))
-            
-        paging = proc_pagination(response['data']['paging'],
+    if request.args.get("registration"):
+            print("THERE IS REGISTRATION")
+            sentAuthor = reg_search(request.args['registration'], request.args.get('page'),
+                request.args.get('per_page'))
+    if request.args.get("title"):
+        #title = request.args['title']
+        sentTitle = search(request.args['title'], request.args.get('page'),
+                request.args.get('per_page'))
+    if request.args.get("author"):
+        print("THERE IS AN AUTHOR")
+        sentAuthor = search(request.args['author'], request.args.get('page'),
+                request.args.get('per_page'))
+    if request.args.get("publisher"):
+        print("THERE IS AN PUBLISHER")
+        sentAuthor = search(request.args['publisher'], request.args.get('page'),
+                request.args.get('per_page'))
+        
+        paging = proc_pagination(sentTitle['data']['paging'],
                                  request.args.get('page'))
                                 
-        results = proc_results(response)
-        print(results)
+        results = proc_results(sentTitle)
+        #print(results)
     
     
     return render_template('base.html', title=title)
