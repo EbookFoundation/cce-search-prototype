@@ -1,53 +1,10 @@
-<!DOCTYPE html>
-<html lang ="en">
+{% extends 'base.html' %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
-    <link rel="stylesheet" href="/static/styles.css">
-<head>
-<title>Copyright Renewals</title>
-</head>
-    
-<body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Copyright Renewals</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="/">Search <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="about">About Us <span class="sr-only"></span></a>
-                      </li>
-                      <li class="nav-item active">
-                          <a class="nav-link" href="#">Copyrights <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">NYPL <span class="sr-only">(current)</span></a>
-                          </li>
-                  </ul>
-                </div>
-              </nav>
-<div class="bg">
-<div class="py-5 text-center">
-    <div class="about">
-        <h1>About</h1>
-        <p>Many books published between 1923 through 1977 may be in the public domain either because their copyright was not registered, or because their copyrights were not renewed after an initial term. Unfortunately, determining the copyright status of these books requires a review of the copyright records of registration and renewal. Unfortunately, these records were all on paper. Digital scans of these records were made, and are available from the Internet Archive, but searching the scans is not easy.</p>
-        <p>To make this task more manageable, work has gone underway to convert the Catalog of Copyright Entries (CCEs) into well-structured XML data.  The CCEs are comprised of about 450,000 pages and are printed compilations of brief registration and renewal records. These records were published by the Copyright Office at regular intervals, ranging in length from semi-weekly to semi-annually. The CCEs are divided by classes of works, such as books, periodicals, music, drama, maps, photographs, etc. Conversion of a set of 10,000 pages of book registration records published between 1923 and 1964 has been completed, and the result is publicly <a href="https://github.com/NYPL/catalog_of_copyright_entries_project">available</a>.</p>
-        <p>This website serves as a user-friendly interface for librarians, archivists, and rights researchers to make use of the XML data.</p>
-    </div>
-</div>
-</div>
-    
-</body>
-</html>
+{% block content %}
+      <!-- <div class="about"> -->
+          <h1>About</h1>
+          <p>Many books published between 1923 through 1977 may be in the public domain either because their copyright was not registered, or because their copyrights were not renewed after an initial term. Unfortunately, determining the copyright status of these books requires a review of the copyright records of registration and renewal. Unfortunately, these records were all on paper. Digital scans of these records were made, and are available from the Internet Archive, but searching the scans is not easy.</p>
+          <p>To make this task more manageable, work has gone underway to convert the Catalog of Copyright Entries (CCEs) into well-structured XML data.  The CCEs are comprised of about 450,000 pages and are printed compilations of brief registration and renewal records. These records were published by the Copyright Office at regular intervals, ranging in length from semi-weekly to semi-annually. The CCEs are divided by classes of works, such as books, periodicals, music, drama, maps, photographs, etc. Conversion of a set of 10,000 pages of book registration records published between 1923 and 1964 has been completed, and the result is publicly <a href="https://github.com/NYPL/catalog_of_copyright_entries_project">available</a>.</p>
+          <p>This website serves as a user-friendly interface for librarians, archivists, and rights researchers to make use of the XML data.</p>
+      <!-- </div> -->
+{% endblock %}

@@ -50,7 +50,7 @@ def index():
         #print(results)
     
     
-    return render_template('base.html', title=title)
+    return render_template('search/index.html', title=title)
 
 
 def proc_results(r):
