@@ -1,17 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- <div class="search"> -->
-  <h1>Copyright Search</h1>
-  <p id="cprr">Search for copyright registrations and renewals on books from the Catalog of Copyright Entries.</p>
-  <p>Find a book:</p>
-  <form>
-    <input type="text" name="title" id="title" placeholder="Title" autocomplete="off"><br>
-    <input type="text" name="author" placeholder="Author" autocomplete="off"><br>
-    <input type="text" name="publisher" placeholder="Publisher" autocomplete="off"><br>
-    <input type="text" name="registration" placeholder="Registration Number" autocomplete="off"><br>
-    <input type="text" name="renewal" placeholder="Renewal Number" autocomplete="off"><br>
-    <input type="submit" value="Search" class="btn">
-  </form>
-<!-- </div> -->
+
+
+{% if results %}
+
+  {% include "search/paging.html" %}
+  
+    {% for result in results %}
+    <div class = "results">
+      {% if result['type'] %}
+        {% include "search/render_renewal.html" %}
+      {% else %}
+        {% include "search/render_registration.html" %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  
+
+{% else %}
+<div class="py-5 text-center">
+  <div class= "content">
+    <h1>Copyright Search</h1>
+    <p id="cprr">Search for copyright registrations and renewals on books from the Catalog of Copyright Entries.</p>
+    <p>Find a book:</p>
+    <form>
+      <input type="text" name="title" id="title" placeholder="Title" autocomplete="off"><br>
+      <input type="text" name="author" placeholder="Author" autocomplete="off"><br>
+      <input type="text" name="publisher" placeholder="Publisher" autocomplete="off"><br>
+      <input type="text" name="registration" placeholder="Registration Number" autocomplete="off"><br>
+      <input type="text" name="renewal" placeholder="Renewal Number" autocomplete="off"><br>
+      <input type="submit" value="Search" class="btn">
+    </form>
+  </div>
+</div>
+
+
+{% endif %}
+{% include "search/paging.html" %}
+
 {% endblock %}

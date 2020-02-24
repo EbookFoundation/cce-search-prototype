@@ -1,6 +1,5 @@
 body, html {
-  background: url('books.jpg') no-repeat;
-  background-size:cover;
+  background: url('books.jpg');
 }
 
 .content{

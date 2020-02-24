@@ -14,44 +14,48 @@ def index():
     results = None
     title = None
     paging=None
+    sentTitle = None
     search_type = "ft"
     print("TEST HERE")
     print(request.args)
     print(request.args.get("title"))
-    print(title)
     print("----------------------------------------------------------")
     
-
-    if request.args.get("renewal"):
-            print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
-            sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
+    if request.args:
+        if request.args.get("title"):
+            title = request.args['title']
+            print("TITLE HERE")
+            sentTitle = search(request.args['title'], request.args.get('page'),
                 request.args.get('per_page'))
-    if request.args.get("registration"):
-            print("THERE IS REGISTRATION")
-            sentAuthor = reg_search(request.args['registration'], request.args.get('page'),
-                request.args.get('per_page'))
-    if request.args.get("title"):
-        #title = request.args['title']
-        print("TITLE HERE")
-        sentTitle = search(request.args['title'], request.args.get('page'),
-                request.args.get('per_page'))
-    if request.args.get("author"):
-        print("THERE IS AN AUTHOR")
-        sentAuthor = search(request.args['author'], request.args.get('page'),
-                request.args.get('per_page'))
-    if request.args.get("publisher"):
-        print("THERE IS AN PUBLISHER")
-        sentAuthor = search(request.args['publisher'], request.args.get('page'),
-                request.args.get('per_page'))
+            #print(sentTitle)
+        if request.args.get("renewal"):
+                print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
+                sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
+                    request.args.get('per_page'))
+        if request.args.get("registration"):
+                print("THERE IS REGISTRATION")
+                sentAuthor = reg_search(request.args['registration'], request.args.get('page'),
+                    request.args.get('per_page'))
         
+        if request.args.get("author"):
+            print("THERE IS AN AUTHOR")
+            sentAuthor = search(request.args['author'], request.args.get('page'),
+                    request.args.get('per_page'))
+        if request.args.get("publisher"):
+            print("THERE IS AN PUBLISHER")
+            sentAuthor = search(request.args['publisher'], request.args.get('page'),
+                    request.args.get('per_page'))
+            
         paging = proc_pagination(sentTitle['data']['paging'],
-                                 request.args.get('page'))
-                                
+            request.args.get('page'))
+                                    
         results = proc_results(sentTitle)
+        #print("-----------PRINTING RESULTS AQUI---------------")
         #print(results)
     
-    
-    return render_template('search/index.html', title=title)
+    #THIS WILL BREAK IF THERE ARE NO RESULTS AT THE MOMENT- NEED TO FIX
+    return render_template('search/index.html', results=results, term=sentTitle,
+                           paging=paging, search_type=search_type)
 
 
 def proc_results(r):
