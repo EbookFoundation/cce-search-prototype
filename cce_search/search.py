@@ -32,6 +32,7 @@ def index():
                 request.args.get('per_page'))
     if request.args.get("title"):
         #title = request.args['title']
+        print("TITLE HERE")
         sentTitle = search(request.args['title'], request.args.get('page'),
                 request.args.get('per_page'))
     if request.args.get("author"):
