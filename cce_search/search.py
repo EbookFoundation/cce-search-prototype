@@ -16,18 +16,19 @@ def index():
     paging=None
     sentTitle = None
     search_type = "ft"
+    arguments = request.args.get("title") or request.args.get("renewal") or request.args.get("registration") or request.args.get("author") or request.args.get("publisher")
     print("TEST HERE")
     print(request.args)
     print(request.args.get("title"))
     print("----------------------------------------------------------")
-    
-    if request.args:
+    if not arguments:
+        print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
+    else:
         if request.args.get("title"):
             title = request.args['title']
             print("TITLE HERE")
             sentTitle = search(request.args['title'], request.args.get('page'),
                 request.args.get('per_page'))
-            #print(sentTitle)
         if request.args.get("renewal"):
                 print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
                 sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
@@ -45,17 +46,17 @@ def index():
             print("THERE IS AN PUBLISHER")
             sentAuthor = search(request.args['publisher'], request.args.get('page'),
                     request.args.get('per_page'))
-            
+
         paging = proc_pagination(sentTitle['data']['paging'],
             request.args.get('page'))
-                                    
+        print("PRINTING PAGING HERE")
+        print(paging)                            
         results = proc_results(sentTitle)
-        #print("-----------PRINTING RESULTS AQUI---------------")
-        #print(results)
-    
-    #THIS WILL BREAK IF THERE ARE NO RESULTS AT THE MOMENT- NEED TO FIX
+
+    #breaks if there are few results, or if you click on last page
+    #makes me think there's an issue with a for loop that is rendering the results since the last result won't display?
     return render_template('search/index.html', results=results, term=sentTitle,
-                           paging=paging, search_type=search_type)
+            paging=paging, search_type=search_type)
 
 
 def proc_results(r):
