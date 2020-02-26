@@ -68,22 +68,23 @@ After you have activated the virtual environment, press `ctrl-d` to exit. Your t
 
 ## Deploying the project locally
 
-After activating the virtual environment, run the following commands from within the root directory of the project:
-
-<!-- `gunicorn -w=4 wsgi:app` -->
-    $ export FLASK_ENV=development 
-
-*(This is optional, but enables useful debugging tools)*
-
-    $ flask run
+After activating the virtual environment, run `flask run` within the root directory of the project:
 
 The Flask app will then be running at [localhost:5000](localhost:5000).
+
+Optionally, use `export FLASK_ENV=development` before running the app to enable useful debugging tools.
 
 To close the application, end the process with `ctrl-c` in your terminal. 
 
 ## Running Tests
 
-In the root directory of the project, run `python -m pytest`. This will run the entire test suite. New test functions and files must be contained in the `tests/` directory.
+In the root directory of the project, run 
+
+`python -m pytest`. 
+
+This will run the entire test suite. New test functions and files must be contained in the `tests/` directory.
+
+To see test coverage data, run `python -m pytest --cov`. To generate an HTML coverage report, run `python -m pytest --cov-report html tests/ --cov=./`. Then, run `python -m http.server` and navigate to [localhost:8000](localhost:8000) to view it.
 
 ## Troubleshooting
 

@@ -13,16 +13,9 @@ from cce_search import create_app
 # Create the client fixture used by tests
 @pytest.fixture
 def app():
-    # Create temp file to hold db for testing
-    db_fd, db_path = tempfile.mkstemp()
-    app = create_app({'TESTING': True, 'DATABASE': db_path}) # In __init__.py, 'DATABASE' is commented out --> issue?
-
-    # TODO: Create database --> our project differs here
+    app = create_app({'TESTING': True})
 
     yield app
-        
-    os.close(db_fd)
-    os.unlink(db_path)
 
 # Create the test client
 @pytest.fixture
