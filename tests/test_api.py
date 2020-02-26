@@ -45,7 +45,7 @@ def test_renewal_lookup(client):
 def test_fulltext_search(client):
     res = requests.get(API + "/search/fulltext?query=I%20Ching")
     json_res = res.json()
-    assert len(json_res["data"]["results"]) == 10 # TODO: Improve this
+    assert json_res["data"]["results"][3]["renewal_num"] == RENEW_NUM
 
 # Test the registration number search service is working
 def test_registration_search(client):
