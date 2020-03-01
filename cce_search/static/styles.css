@@ -1,5 +1,6 @@
 body, html {
-  background: url('books.jpg');
+  background: url('cover-collage-2.jpg');
+  background-size: 100%;
 }
 
 .content{
@@ -24,10 +25,6 @@ body, html {
   width:75%
 }
 
-/* h1{
-  margin: 0px 0px 10px 0px;
-} */
-
 input {
   width: 75%;
   height:30px;
@@ -50,6 +47,7 @@ button{
   position: -webkit-sticky;
   top: 0;
 }
+
 .totheleft{
     float:left;
     color:white;
