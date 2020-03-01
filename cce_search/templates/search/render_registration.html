@@ -1,71 +1,62 @@
 
-  <h3>Registration {{ result['registrations'][0]['number'] }}</h3>
-    <dl class="grid-row">
-      <dt class="grid-col-2">Title</dt>
-      <dd class="grid-col-9">{{ result['title'] }}</dd>
-      
-      <dt class="grid-col-2">Authors</dt>
-      <dd class="grid-col-9">
-        <ul class="usa-list usa-list--unstyled">
-          {% for a in result['authors'] %}
-          <li>{{ a }}</li>
-          {% endfor %}
-        </ul>
-      </dd>
+  <div class = "d-flex"><h3>Registration {{ result['registrations'][0]['number'] }}</h3></div>
+    <dl>
 
-      <dt class="grid-col-2">Registrations</dt>
-      <dd class="grid-col-9">
-        <ul class="usa-list usa-list--unstyled">
-          {% for r in result['registrations'] %}
-          <li>{{ r['number'] }} {{ r['date'] }}</li>
+      <div class="row">
+          <div class="col-sm-6"><b>Title</b></div>
+          <div class="col-sm-6">{{ result['title'] }}</div>
+        </div>
+      
+      <div class = "row">
+      <div class="col-sm-6"><b>Authors</b></div>
+          {% for a in result['authors'] %}
+          <div class="col-sm-6">-{{ a }}</div>
+          <div class="col-sm-6"> </div>
           {% endfor %}
-        </ul>
-      </dd>
+      </div>
+
+      <div class="row">
+      <div class="col-sm-6"><b>Registrations</b></div>
+          {% for r in result['registrations'] %}
+          <div class="col-sm-6">-{{ r['number'] }} {{ r['date'] }}</div>
+          {% endfor %}
+        </div>
 
       {% if result['copies'] %}
-      <dt class="grid-col-2">Copies</dt>
-      <dd class="grid-col-9">{{ result['copies'] }}</dd>
+      <dt>Copies</dt>
+      {{ result['copies'] }}
       {% endif %}
       
       {% if result['copy_date'] %}
-      <dt class="grid-col-2">Copy Date</dt>
-      <dd class="grid-col-9">{{ result['copy_date'] }}</dd>
+      <dt>Copy Date</dt>
+      {{ result['copy_date'] }}
       {% endif %}
       
       {% if result['description'] %}
-      <dt class="grid-col-2">Description</dt>
-      <dd class="grid-col-9">{{ result['description'] }}</dd>      
+      <dt>Description</dt>
+      {{ result['description'] }}    
       {% endif %}
       
       {% if result['pub_date'] %}
-      <dt class="grid-col-2">Publication Date</dt>
-      <dd class="grid-col-9">{{ result['pub_date'] }}</dd>
+      <dt>Publication Date</dt>
+      {{ result['pub_date'] }}
       {% endif %}
       
       {% if result['publishers'] %}
-      <dt class="grid-col-2">Publishers</dt>
-      <dd class="grid-col-9">
-        <ul class="usa-list usa-list--unstyled">
+      <dt>Publishers</dt>
           {% for p in result['publishers'] %}
-          <li>{{ p }}</li>
+          - {{ p }}<br>
           {% endfor %}
-        </ul>
-      </dd>
       {% endif %}
       
-      <dt class="grid-col-2">Renewals</dt>
-      <dd class="grid-col-9">
+      <dt>Renewals</dt>
         {% if result['is_post_1963'] %}
         <em>Works published after 1963 do not require renewal and are in copyright</em>
         {% else %}
         {% if result['renewals'] %}
-        <ul class="child-renewal grid-container usa-list usa-list--unstyled">
           {% for renewal in result['renewals'] %}
-          <li class="grid-row">
             {% include "search/render_child_renewal.html" %}
-          </li>
           {% endfor %}
-        </ul>
         {% else %}
         <em>No renewals found</em>
         {% endif %}
@@ -78,22 +69,16 @@
         {% if result['is_interim'] %}
         <p>See note on <a href="/registration-classes#interim">Interim registrations</a></p>
         {% endif %}
-      </dd>
       
-      <dt class="grid-col-2">Source</dt>
-      <dd class="grid-col-9">
+      <dt>Source</dt>
         <a href="{{ result['source_url'] }}">
           {{ result['source']['year'] }} p. {{ result['source']['page'] }}
         </a>
-      </dd>
       
-      <dt class="grid-col-2">Original</dt>
-      <dd class="grid-col-9">{{ result['original'] }}</dd>
+      <dt>Original</dt>
+        {{ result['original'] }}
       
-      <dt class="grid-col-2">CCEID</dt>
-      <dd class="grid-col-9">
+      <dt>CCEID</dt>
         <a href="/cceid/{{ result['uuid'] }}">{{ result['uuid'] }}</a>
-      </dd>
-
-      
+  
     </dl>
