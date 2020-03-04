@@ -1,0 +1,51 @@
+<h3>Renewal {{ result['renewal_num'] }}</h3>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th scope="row">Title</th>
+            <td>{{ result['title'] }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Authors</th>
+            <td>{{ result['author'] }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Renewal</th>
+            <td>{{ result['renewal_num'] }} {{ result['renewal_date'] }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Claimants</th>
+            <td>
+                {% for c in result['claimants'] %}
+                <p>{{ c['name'] }} ({{ c['type'] }})</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% if result['new_matter'] %}
+        <tr>
+            <th scope="row">New Matter</th>
+            <td>{{ result['new_matter'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if result['notes'] %}
+        <tr>
+            <th scope="row">Notes</th>
+            <td>{{ result['notes'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if result['source'] %}
+        <tr>
+            <th scope="row">Original</th>
+            <td>{{ result['source'] }}</td>
+        </tr>
+        {% endif %}
+        
+        <tr>
+            <th scope="row">CCEID</th>
+            <td><a href="/cceid/{{ result['uuid'] }}">{{ result['uuid'] }}</a></dd>
+        </tr>
+        
+    </tbody>
+</table>
