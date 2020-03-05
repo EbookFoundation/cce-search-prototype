@@ -52,6 +52,7 @@ def index():
         #print("PRINTING PAGING HERE")
         #print(paging)                            
         results = proc_results(sentTitle)
+        print(results)
 
     #breaks if there are few results, or if you click on last page
     #makes me think there's an issue with a for loop that is rendering the results since the last result won't display?
@@ -60,19 +61,21 @@ def index():
 
 
 def proc_results(r):
-    print("PRINTING ALL PROC_RESULTS")
-    print(r)
+    #print("PRINTING ALL PROC_RESULTS")
+    #print(r)
     return [enhance_results(res) for res in r['data']['results']]
-    #none type object due to this for loop. why? no clue.
+    #none type object due to this for loop. why? no clue. 
 
 
 def enhance_results(r):
-    if r.get('term') == 'renewal':
+    #print(r)
+    if r.get('type') == 'renewal':
+        #print("++++++++++++RENEWAL HERE OK++++++++++")
         return r
     #print("PRINTING REGISTRATIONS NOW")
-    print(r.get('registrations'))
-    print("==============================")
-    print(r.get("xml"))
+   # print(r.get('registrations'))
+    #print("==============================")
+    #print(r.get("xml"))
     return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
@@ -97,7 +100,7 @@ def ia_stream(url):
 
 def is_post_1963(regs):
     #print("PRINTING REGS NOW")
-    print(regs)
+    #print(regs)
     return any([r['date'] > '1963' for r in regs])
 
 
