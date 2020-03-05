@@ -17,18 +17,18 @@ def index():
     sentTitle = None
     search_type = "ft"
     arguments = request.args.get("title") or request.args.get("renewal") or request.args.get("registration") or request.args.get("author") or request.args.get("publisher")
-    print("TEST HERE")
-    print(request.args)
-    print(request.args.get("title"))
+    #print("TEST HERE")
+    #print(request.args)
+    #print(request.args.get("title"))
     print("----------------------------------------------------------")
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
     else:
-        if request.args.get("title"):
-            title = request.args['title']
-            print("TITLE HERE")
-            sentTitle = search(request.args['title'], request.args.get('page'),
-                request.args.get('per_page'))
+        #if request.args.get("title"):
+        title = request.args['title']
+            #print("TITLE HERE")
+        sentTitle = search(title, request.args.get('page'),
+            request.args.get('per_page'))
         if request.args.get("renewal"):
                 print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
                 sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
@@ -49,13 +49,13 @@ def index():
 
         paging = proc_pagination(sentTitle['data']['paging'],
             request.args.get('page'))
-        print("PRINTING PAGING HERE")
-        print(paging)                            
+        #print("PRINTING PAGING HERE")
+        #print(paging)                            
         results = proc_results(sentTitle)
 
     #breaks if there are few results, or if you click on last page
     #makes me think there's an issue with a for loop that is rendering the results since the last result won't display?
-    return render_template('search/index.html', results=results, term=sentTitle,
+    return render_template('search/index.html', results=results, term=title,
             paging=paging, search_type=search_type)
 
 
@@ -63,13 +63,16 @@ def proc_results(r):
     print("PRINTING ALL PROC_RESULTS")
     print(r)
     return [enhance_results(res) for res in r['data']['results']]
+    #none type object due to this for loop. why? no clue.
 
 
 def enhance_results(r):
-    if r.get('title') == 'renewal':
+    if r.get('term') == 'renewal':
         return r
-    print("PRINTING REGISTRATIONS NOW")
+    #print("PRINTING REGISTRATIONS NOW")
     print(r.get('registrations'))
+    print("==============================")
+    print(r.get("xml"))
     return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
@@ -93,7 +96,7 @@ def ia_stream(url):
 
 
 def is_post_1963(regs):
-    print("PRINTING REGS NOW")
+    #print("PRINTING REGS NOW")
     print(regs)
     return any([r['date'] > '1963' for r in regs])
 
