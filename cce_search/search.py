@@ -67,11 +67,13 @@ def enhance_results(r):
     if r.get('title') == 'renewal':
         return r
 
-    return {**r, **{'original': strip_tags(r.get('xml')),
+    """ return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
                     'is_interim': is_interim(r.get('registrations')),
-                    'source_url': ia_url(r.get('source', {}))}}
+                    'source_url': ia_url(r.get('source', {}))}} """
+
+    return r
 
 
 def strip_tags(xml):
