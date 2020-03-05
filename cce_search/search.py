@@ -60,20 +60,21 @@ def index():
 
 
 def proc_results(r):
+    print("PRINTING ALL PROC_RESULTS")
+    print(r)
     return [enhance_results(res) for res in r['data']['results']]
 
 
 def enhance_results(r):
     if r.get('title') == 'renewal':
         return r
-
-    """ return {**r, **{'original': strip_tags(r.get('xml')),
+    print("PRINTING REGISTRATIONS NOW")
+    print(r.get('registrations'))
+    return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
                     'is_interim': is_interim(r.get('registrations')),
-                    'source_url': ia_url(r.get('source', {}))}} """
-
-    return r
+                    'source_url': ia_url(r.get('source', {}))}}
 
 
 def strip_tags(xml):
@@ -82,7 +83,7 @@ def strip_tags(xml):
     return ""
 
 
-def ia_url(src):
+def ia_url(src): 
     #return src
     return "{}#page/{:d}/mode/1up".format(ia_stream(src.get('url', '')),
                                         src.get('page', 0))
@@ -92,6 +93,8 @@ def ia_stream(url):
 
 
 def is_post_1963(regs):
+    print("PRINTING REGS NOW")
+    print(regs)
     return any([r['date'] > '1963' for r in regs])
 
 
