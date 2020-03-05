@@ -24,11 +24,10 @@ def index():
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
     else:
-        #if request.args.get("title"):
-        title = request.args['title']
-            #print("TITLE HERE")
-        sentTitle = search(title, request.args.get('page'),
-            request.args.get('per_page'))
+        if request.args.get("title"):
+            title = request.args['title']
+            sentTitle = search(title, request.args.get('page'),
+                request.args.get('per_page'))
         if request.args.get("renewal"):
                 print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
                 sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
@@ -61,21 +60,12 @@ def index():
 
 
 def proc_results(r):
-    #print("PRINTING ALL PROC_RESULTS")
-    #print(r)
     return [enhance_results(res) for res in r['data']['results']]
-    #none type object due to this for loop. why? no clue. 
 
 
 def enhance_results(r):
-    #print(r)
     if r.get('type') == 'renewal':
-        #print("++++++++++++RENEWAL HERE OK++++++++++")
         return r
-    #print("PRINTING REGISTRATIONS NOW")
-   # print(r.get('registrations'))
-    #print("==============================")
-    #print(r.get("xml"))
     return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
@@ -99,8 +89,6 @@ def ia_stream(url):
 
 
 def is_post_1963(regs):
-    #print("PRINTING REGS NOW")
-    #print(regs)
     return any([r['date'] > '1963' for r in regs])
 
 
