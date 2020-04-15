@@ -27,7 +27,6 @@ def index():
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
     else:
         if request.args.get("renewal"):
-                print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
                 results = ren_search(request.args['renewal'], request.args.get('page'),
                     request.args.get('per_page'))
                 paging = proc_pagination(results['data']['paging'], request.args.get('page'))    
@@ -35,7 +34,6 @@ def index():
         
         
         if request.args.get("registration") and unique == 0:
-                print("THERE IS REGISTRATION")
                 results = reg_search(request.args['registration'], request.args.get('page'),
                     request.args.get('per_page'))
                 paging = proc_pagination(results['data']['paging'], request.args.get('page'))
@@ -50,7 +48,6 @@ def index():
         
         
         if request.args.get("author") and unique == 0:
-            print("THERE IS AN AUTHOR")
             results = search(request.args['author'], request.args.get('page'),
                     request.args.get('per_page'))
             paging = proc_pagination(results['data']['paging'],
@@ -58,7 +55,6 @@ def index():
         
         
         if request.args.get("publisher") and unique == 0:
-            print("THERE IS AN PUBLISHER")
             results = search(request.args['publisher'], request.args.get('page'),
                     request.args.get('per_page'))
             paging = proc_pagination(results['data']['paging'],
@@ -71,9 +67,12 @@ def index():
                            
         results = proc_results(results)
         print(results)
-
-    #breaks if there are few results, or if you click on last page
-    #makes me think there's an issue with a for loop that is rendering the results since the last result won't display?
+        
+        if results == []:
+            print("NO RESULTS")
+            noresults = 1
+            return render_template('search/index.html', noresults=noresults)
+    
     return render_template('search/index.html', results=results, term=title,
             paging=paging, search_type=search_type)
 

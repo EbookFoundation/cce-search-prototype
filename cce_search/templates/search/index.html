@@ -2,20 +2,19 @@
 
 {% block content %}
 
-
 {% if results %}
-
   {% include "search/paging.html" %}
-  
     {% for result in results %}
     <div class = "results">
         <!-- {% include "search/render_registration.html" %} -->
         {% include "search/new_registration.html" %}
     </div>
     {% endfor %}
-  
-
 {% else %}
+
+
+
+
 <div class="py-5 text-center">
   <div class = "content">
     <h1>Copyright Search</h1>
@@ -29,19 +28,14 @@
       <input type="text" name="renewal" placeholder="Renewal Number" autocomplete="off"><br>
       <button type="submit" class="btn btn-secondary">Search</button>
     </form>
+    {% if noresults %}
+    <br>
+    <div class="alert alert-danger" role="alert">No results found. Please try another search.</div>
+    {% endif %}
   </div>
 </div>
 
+
 {% endif %}
-
-{% if noresults %}
-    <div class = "results">
-      <h1>No Results Found.</h1>
-      <a href="/">Back To Search</a>
-    </div>
-{% endif %}
-
-
-{% include "search/paging.html" %}
 
 {% endblock %}
