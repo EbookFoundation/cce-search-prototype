@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 
   <div class = "d-flex"><h3>Title: {{ result['title'] }}</h3></div>
     <dl>
 
+=======
+  <div class = "d-flex"><h3>Registration {{ result['registrations'][0]['number'] }}</h3></div>
+    <dl>
+
+      <div class="row">
+          <div class="col col-sm-6"><b>Title</b></div>
+          <div class="col col-sm-6">{{ result['title'] }}</div>
+        </div>
+>>>>>>> 64bb8e084d56712426a580424bbea10580ed97dc
       
       <div class = "row">
-      <div class="col-sm-6"><b>Authors</b></div>
+      <div class="col col-sm-6"><b>Authors</b></div>
           {% for a in result['authors'] %}
-          <div class="col-sm-6">-{{ a }}</div>
+          <div class="col col-sm-6">-{{ a }}</div>
           <div class="col-sm-6"> </div>
           {% endfor %}
       </div>

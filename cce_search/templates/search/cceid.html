@@ -6,9 +6,11 @@
 
 {% block content %}
 {% if result["type"] %}
-{% include "search/render_renewal.html" %}
+{% include "search/new_renewal.html" %}
 {% else %}
-{% include "search/render_registration.html" %}
+<div class="results">
+    {% include "search/new_registration.html" %}
+</div>
 {% endif %}
 {% endblock %}
   

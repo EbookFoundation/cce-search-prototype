@@ -21,36 +21,55 @@ def index():
     #print(request.args)
     #print(request.args.get("title"))
     print("----------------------------------------------------------")
+    unique = 0
+    
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
     else:
-        if request.args.get("title"):
-            title = request.args['title']
-            sentTitle = search(title, request.args.get('page'),
-                request.args.get('per_page'))
         if request.args.get("renewal"):
                 print("UNIQUE. THERE IS RENEWAL. NEED TO BREAK FROM THIS UNLESS NO RESULTS SHOW")
-                sentAuthor = ren_search(request.args['renewal'], request.args.get('page'),
+                results = ren_search(request.args['renewal'], request.args.get('page'),
                     request.args.get('per_page'))
-        if request.args.get("registration"):
-                print("THERE IS REGISTRATION")
-                sentAuthor = reg_search(request.args['registration'], request.args.get('page'),
-                    request.args.get('per_page'))
+                paging = proc_pagination(results['data']['paging'], request.args.get('page'))    
+                unique = 1
         
-        if request.args.get("author"):
+        
+        if request.args.get("registration") and unique == 0:
+                print("THERE IS REGISTRATION")
+                results = reg_search(request.args['registration'], request.args.get('page'),
+                    request.args.get('per_page'))
+                paging = proc_pagination(results['data']['paging'], request.args.get('page'))
+                unique = 1 #technically not 100% unique but should be very simplified for now
+        
+        if request.args.get("title") and unique == 0:
+            title = request.args['title']
+            results = search(title, request.args.get('page'),
+                request.args.get('per_page'))
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        
+        
+        if request.args.get("author") and unique == 0:
             print("THERE IS AN AUTHOR")
-            sentAuthor = search(request.args['author'], request.args.get('page'),
+            results = search(request.args['author'], request.args.get('page'),
                     request.args.get('per_page'))
-        if request.args.get("publisher"):
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        
+        
+        if request.args.get("publisher") and unique == 0:
             print("THERE IS AN PUBLISHER")
-            sentAuthor = search(request.args['publisher'], request.args.get('page'),
+            results = search(request.args['publisher'], request.args.get('page'),
                     request.args.get('per_page'))
-
-        paging = proc_pagination(sentTitle['data']['paging'],
-            request.args.get('page'))
-        #print("PRINTING PAGING HERE")
-        #print(paging)                            
-        results = proc_results(sentTitle)
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        #paging = proc_pagination(results['data']['paging'],
+        #    request.args.get('page'))
+        
+        print("PRINTING PAGING HERE")
+        print(paging) 
+                           
+        results = proc_results(results)
         print(results)
 
     #breaks if there are few results, or if you click on last page

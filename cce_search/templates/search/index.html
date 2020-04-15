@@ -9,14 +9,15 @@
   
     {% for result in results %}
     <div class = "results">
-        {% include "search/render_registration.html" %}
+        <!-- {% include "search/render_registration.html" %} -->
+        {% include "search/new_registration.html" %}
     </div>
     {% endfor %}
   
 
 {% else %}
 <div class="py-5 text-center">
-  <div class= "content">
+  <div class = "content">
     <h1>Copyright Search</h1>
     <p id="cprr">Search for copyright registrations and renewals on books from the Catalog of Copyright Entries.</p>
     <p>Find a book:</p>
@@ -26,7 +27,7 @@
       <input type="text" name="publisher" placeholder="Publisher" autocomplete="off"><br>
       <input type="text" name="registration" placeholder="Registration Number" autocomplete="off"><br>
       <input type="text" name="renewal" placeholder="Renewal Number" autocomplete="off"><br>
-      <input type="submit" value="Search" class="btn">
+      <button type="submit" class="btn btn-secondary">Search</button>
     </form>
   </div>
 </div>
