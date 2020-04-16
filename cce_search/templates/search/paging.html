@@ -1,29 +1,44 @@
 {% if paging["has_pages"] %}
-<nav aria-label="pagination" class="pagination">
-  <ul class="usa-list usa-list--unstyled">
+<nav class="nav justify-content-end">
+
     {% if paging['pages']['first'] %}
-    <li><a href="{{ paging['pages']['first'] }}">First</a></li>
+    <span class="badge badge-light">
+      <a href="{{ paging['pages']['first'] }}">First</a>
+      </span>
     {% endif %}
+
 
     {% if paging['pages']['previous'] %}
-    <li><a href="{{ paging['pages']['previous'] }}">Previous</a></li>
+    <span class="badge badge-light">
+    <a href="{{ paging['pages']['previous'] }}">Previous</a>
+    </span>
     {% endif %}
 
-    <li>Page {{ paging["current_page"] }} of {{ paging["last_page"] }}</li>
+    <span class="badge badge-primary">
+    Page {{ paging["current_page"] }} of {{ paging["last_page"] }}
+    </span>
 
     {% if paging['pages']['next'] %}
-    <li><a href="{{ paging['pages']['next'] }}">Next</a></li>
+    <span class="badge badge-light">
+    <a href="{{ paging['pages']['next'] }}">Next</a>
+    </span>
     {% endif %}
 
     {% if paging['pages']['last'] %}
-    <li><a href="{{ paging['pages']['last'] }}">Last</a></li>
+    <span class="badge badge-light">
+    <a href="{{ paging['pages']['last'] }}">Last</a>
+    </span>
     {% endif %}
-
-  </ul>
+  
 </nav>
+<div class="float-right badge badge-light">
+  <a href="/">Back To Search</a>
+</div>
+<br>
 {% else %}
 {% if results %}
-<div class="pagination">Page 1 of 1</div>
+<div class="nav justify-content-end">Page 1 of 1</div>
 {% endif %}
+
 {% endif %}
 

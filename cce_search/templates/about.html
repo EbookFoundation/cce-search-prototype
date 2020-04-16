@@ -1,46 +1,12 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h2>About this project</h2>
-{% endblock %}
-
 {% block content %}
-<p>This is an unofficial, experimental interface for searching records from the
-US Copyright Office's <i>Catalog of Copyright Entries</i> digitized by NYPL. You
-can read about the inception and progress of the project in two blog
-posts: <a href="https://www.nypl.org/blog/2018/03/30/unlocking-record-american-creativity">Unlocking
-the Record of American Creativity—with Your Help</a>
-and <a href="https://www.nypl.org/blog/2019/05/31/us-copyright-history-1923-1964">https://www.nypl.org/blog/2019/05/31/us-copyright-history-1923-1964</a></p>
-
-<p>Renewals have been searchable for many years thanks to the <a href="https://exhibits.stanford.edu/copyrightrenewals?forward=home">Copyright Renewals project</a> at Stanford. The digitization of <em>registrations</em> by NYPL allows us to find renewed and <em>unrenewed</em> works with equal ease. Search results in this interface contain registrations with their associated renewals, registrations with no known renewals, as well as renewal entries on their own.</p>
-
-<h2>What's in the Data?</h2>
-
-<p>This dataset contains registrations from all the book volumes of the <i>Catalog of Copyright Entries</i>, 1923 to 1969, but <em>not including</em> the “pamphlet” volumes (part 1, group 2) from 1923 to 1953. It contains all renewals from book volumes from 1923 to 1977, including “pamphlet” volumes (from Project Gutenberg transcriptions) and all renewals from <em>all classes</em> of works from 1978 to 1991 (from the Copyright Office database).</p>
-
-<p>Clearly there are many renewal records for items not yet included in the registrations but, in theory, <em>all</em> book renewals should be included here. That said, these search results are far from definitive. The data still requires cleanup (see <a href="#reporting-errors">How to report a problem or error</a> below).</p>
-
-<h2 id="reporting-errors">How to report a problem or error</h2>
-
-<p>If the problem is with this website and not the data, for instance broken
-links, server errors, or ideas for improvement, you
-can <a href="https://github.com/seanredmond/cce-search-prototype/issues">submit
-an issue on Github</a>.</p>
-
-<p>If you find an error in the data please submit in issue <a href="https://github.com/NYPL/catalog_of_copyright_entries_project/issues">via the Github repository for the registrations</a> unless you are certain that problem is in a renewal entry, in which case you can submit an issue via the <a href="https://github.com/NYPL/cce-renewals/issues">renewals repository</a>. Data problems may involve simple typos, mistakes in parsing, or missing or mistaken links between registrations and renewals. When reporting data problems, please include the CCEIDs of the entries involved. The CCEID is the string of 32 letters in numbers at the end of each record, such as “be62f40e-6d17-1014-b416-88728c01eda4”.</p>
-
-<p>If you are comfortable with git and editing large XML files, you can also submit a pull request.</p>
-
-<h2 id="get-code">Get the Code</h2>
-
-<p>Registration and renewal data is in the Public Domain and available from two repositories:</p>
-
-<ul>
-  <li>Registrations: <a href="https://github.com/NYPL/catalog_of_copyright_entries_project">https://github.com/NYPL/catalog_of_copyright_entries_project</a></li>
-  <li>Renewals: <a href="https://github.com/NYPL/cce-renewals">https://github.com/NYPL/cce-renewals</a></li>
-</ul>
-
-<p>Code for this website is available from its own repository: <a href="https://github.com/seanredmond/cce-search-prototype">https://github.com/seanredmond/cce-search-prototype</a></p>
-  
-
+    <div class="py-5 text-center">
+      <div class="content">
+          <h1>About</h1>
+          <p>Many books published between 1923 through 1977 may be in the public domain either because their copyright was not registered, or because their copyrights were not renewed after an initial term. Unfortunately, determining the copyright status of these books requires a review of the copyright records of registration and renewal. Unfortunately, these records were all on paper. Digital scans of these records were made, and are available from the Internet Archive, but searching the scans is not easy.</p>
+          <p>To make this task more manageable, work has gone underway to convert the Catalog of Copyright Entries (CCEs) into well-structured XML data.  The CCEs are comprised of about 450,000 pages and are printed compilations of brief registration and renewal records. These records were published by the Copyright Office at regular intervals, ranging in length from semi-weekly to semi-annually. The CCEs are divided by classes of works, such as books, periodicals, music, drama, maps, photographs, etc. Conversion of a set of 10,000 pages of book registration records published between 1923 and 1964 has been completed, and the result is publicly <a href="https://github.com/NYPL/catalog_of_copyright_entries_project">available</a>.</p>
+          <p>This website serves as a user-friendly interface for librarians, archivists, and rights researchers to make use of the XML data.</p>
+      </div>
+    </div>
 {% endblock %}

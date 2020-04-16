@@ -1,44 +1,96 @@
-.info-card {
-    border: 2px solid black;
-    border-radius: 1em;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+body, html {
+  background: url('cover-collage-2.jpg');
+  background-size: 100%;
 }
 
-.info-card dt {
-    font-weight: bold;
-}
-
-.info-card dd {
-    padding-bottom: 0.5em;
-}
-
-.info-card ul.child-renewal {
-    padding-left: 0;
-}
-
-fieldset.usa-fieldset legend {
-    margin-bottom: 8px;
-}
-
-.pagination {
+.content{
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#E4E6E9;
+    border: solid #969FAA 3px;
+    border-radius: 35px;
+    text-align: center;
+    width: 60%;
+    padding: 20px 30px;
     text-align: center;
 }
 
-nav.pagination {
-    margin-bottom: 1rem;
+.content p {
+  line-height: 1.5em;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-nav.pagination li {
-    display: inline-block;
-    padding: 0 1em;
+#cprr {
+  width:75%
 }
 
-header {
-    margin-top: 1rem;
-    padding-bottom: 1rem;
+input {
+  width: 85%;
+  height:30px;
+  padding-left: 5px;
+  margin-bottom:10px;
 }
 
-.usa-logo {
-    margin-top: 0;
+.btn{
+  margin-top: 0.75em
+}
+
+.header {
+  background: black;
+  /* padding:2%; */
+  padding-left: 10px;
+  overflow: hidden;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+/* FOR THE RESULTS PAGE */
+
+.results {
+    /* position:relative; */
+    width: 70%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 30px 20px;
+    /* padding-top:10%; */
+    background-color:#E4E6E9;
+    border: solid #969FAA 4px;
+    border-radius: 46px;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+ul {
+  margin-bottom: 0;
+}
+
+.results p {
+    margin: 0;
+}
+
+th {
+  width: 20%;
+}
+
+.table-bordered td, .table-bordered th {
+  border: 2px solid black;
+  background-color: white;
+}
+
+.title {
+    width: fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 10px 20px;
+    /* padding-top:10%; */
+    background-color:#E4E6E9;
+    border: solid #969FAA 4px;
+    border-radius: 20px;
+    margin-bottom: 20px;
 }

@@ -1,0 +1,103 @@
+<h3>Registration {{ result['registrations'][0]['number'] }}</h3>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th scope="row">Title</th>
+            <td>{{ result['title'] }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Authors</th>
+            <td>
+                {% for a in result['authors'] %}
+                <p>{{ a }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Registrations</th>
+            <td>
+                {% for r in result['registrations'] %}
+                <p>{{ r['number'] }} {{ r['date'] }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% if result['copies'] %}
+        <tr>
+            <th scope="row">Copies</th>
+            <td>{{ result['copies'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if result['copy_date'] %}
+        <tr>
+            <th scope="row">Copy Date</th>
+            <td>{{ result['copy_date'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if result['description'] %}
+        <tr>
+            <th scope="row">Description</th>
+            <td>{{ result['description'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if result['pub_date'] %}
+        <tr>
+            <th scope="row">Publication Date</th>
+            <td>{{ result['pub_date'] }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if result['publishers'] %}
+        <tr>
+            <th scope="row">Publishers</th>
+            <td>
+                {% for p in result['publishers'] %}
+                <p>{{p}}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+        
+        <tr>
+            <th scope="row">Renewals</th>
+            <td>
+                {% if result['is_post_1963'] %}
+                    <em>Works published after 1963 do not require renewal and are in copyright</em>
+                {% else %}
+                {% if result['renewals'] %}
+                {% for renewal in result['renewals'] %}
+                    {% include "search/render_child_renewal.html" %}
+                {% endfor %}
+                {% else %}
+                    <em>No renewals found</em>
+                {% endif %}
+                {% endif %}
+                {% if result['is_foreign'] %}
+                <br>See note on <a href="/registration-classes#foreign">Foreign publications</a>
+                {% endif %}
+
+                {% if result['is_interim'] %}
+                <br>See note on <a href="/registration-classes#interim">Interim registrations</a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Source</th>
+            <td>
+                <a href="{{ result['source_url'] }}">
+                    {{ result['source']['year'] }} p. {{ result['source']['page'] }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Original</th>
+            <td>{{ result['original'] }}</td>
+        </tr>
+        <tr>
+            <th scope="row">CCEID</th>
+            <td><a href="/cceid/{{ result['uuid'] }}">{{ result['uuid'] }}</a></td>
+        </tr>
+    </tbody>
+</table>

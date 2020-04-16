@@ -12,34 +12,69 @@ bp = Blueprint('search', __name__)
 @bp.route('/')
 def index():
     results = None
-    term = None
+    title = None
     paging=None
+    sentTitle = None
     search_type = "ft"
-    if request.args:
-        term = request.args['term']
-        if request.args['type'] == 'ft':
-            response = search(request.args['term'], request.args.get('page'),
-                              request.args.get('per_page'))
-        elif request.args['type'] == 'reg':
-            search_type = "reg"
-            term = term.strip().upper()
-            response = reg_search(term,
-                                  request.args.get('page'),
-                                  request.args.get('per_page'))
-        else:
-            search_type = "ren"
-            term = term.strip().upper()
-            response = ren_search(term,
-                                  request.args.get('page'),
-                                  request.args.get('per_page'))
-            
-        paging = proc_pagination(response['data']['paging'],
-                                 request.args.get('page'))
-        results = proc_results(response)
+    arguments = request.args.get("title") or request.args.get("renewal") or request.args.get("registration") or request.args.get("author") or request.args.get("publisher")
+    #print("TEST HERE")
+    #print(request.args)
+    #print(request.args.get("title"))
+    print("----------------------------------------------------------")
+    unique = 0
     
+    if not arguments:
+        print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
+    else:
+        if request.args.get("renewal"):
+                results = ren_search(request.args['renewal'], request.args.get('page'),
+                    request.args.get('per_page'))
+                paging = proc_pagination(results['data']['paging'], request.args.get('page'))    
+                unique = 1
+        
+        
+        if request.args.get("registration") and unique == 0:
+                results = reg_search(request.args['registration'], request.args.get('page'),
+                    request.args.get('per_page'))
+                paging = proc_pagination(results['data']['paging'], request.args.get('page'))
+                unique = 1 #technically not 100% unique but should be very simplified for now
+        
+        if request.args.get("title") and unique == 0:
+            title = request.args['title']
+            results = search(title, request.args.get('page'),
+                request.args.get('per_page'))
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        
+        
+        if request.args.get("author") and unique == 0:
+            results = search(request.args['author'], request.args.get('page'),
+                    request.args.get('per_page'))
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        
+        
+        if request.args.get("publisher") and unique == 0:
+            results = search(request.args['publisher'], request.args.get('page'),
+                    request.args.get('per_page'))
+            paging = proc_pagination(results['data']['paging'],
+                request.args.get('page'))
+        #paging = proc_pagination(results['data']['paging'],
+        #    request.args.get('page'))
+        
+        print("PRINTING PAGING HERE")
+        print(paging) 
+                           
+        results = proc_results(results)
+        print(results)
+        
+        if results == []:
+            print("NO RESULTS")
+            noresults = 1
+            return render_template('search/index.html', noresults=noresults)
     
-    return render_template('search/index.html', results=results, term=term,
-                           paging=paging, search_type=search_type)
+    return render_template('search/index.html', results=results, term=title,
+            paging=paging, search_type=search_type)
 
 
 def proc_results(r):
@@ -49,7 +84,6 @@ def proc_results(r):
 def enhance_results(r):
     if r.get('type') == 'renewal':
         return r
-
     return {**r, **{'original': strip_tags(r.get('xml')),
                     'is_post_1963': is_post_1963(r.get('registrations')),
                     'is_foreign': is_foreign(r.get('registrations')),
@@ -63,7 +97,7 @@ def strip_tags(xml):
     return ""
 
 
-def ia_url(src):
+def ia_url(src): 
     #return src
     return "{}#page/{:d}/mode/1up".format(ia_stream(src.get('url', '')),
                                         src.get('page', 0))

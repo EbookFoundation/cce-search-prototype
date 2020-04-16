@@ -35,6 +35,10 @@ def create_app(test_config=None):
     def about():
         return render_template('about.html')
 
+    @app.route('/results')
+    def results():
+        return render_template('results.html')
+
 
     # a simple page that says hello
     @app.route('/registration-classes')
