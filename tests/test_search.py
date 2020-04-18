@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup
     # page = BeautifulSoup(res.data, 'html.parser')
 
 # Test that an unsuccessful full text search returns to the home screen
-def test_unsuccessful_full_text_search(client):
+# def test_unsuccessful_full_text_search(client):
     # res = client.get("/?type=ft&term=blahblahblahblahblahblah")
     # assert res.status_code == 200
     # result_page = BeautifulSoup(res.data, 'html.parser')
