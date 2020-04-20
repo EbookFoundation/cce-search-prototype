@@ -1,13 +1,10 @@
 import pytest
 
-from bs4 import BeautifulSoup
-
 # Test that the application successfully serves the main page
 def test_search_page(client):
     res = client.get("/")
     assert res.status_code == 200
-    page = BeautifulSoup(res.data, 'html.parser')
-    assert page.title.string == "Copyright Renewals"
+    assert b'<form>' in res.data
 
 # Test that a successful title search yields results
 def test_successful_title_search(client):
