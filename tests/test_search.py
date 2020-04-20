@@ -1,61 +1,67 @@
 import pytest
 
-from bs4 import BeautifulSoup
-
 # Test that the application successfully serves the main page
 def test_search_page(client):
     res = client.get("/")
     assert res.status_code == 200
-    page = BeautifulSoup(res.data, 'html.parser')
-    assert page.title.string == "Find Copyright Entries - CCE Search"
+    assert b'<form>' in res.data
 
-# Test that a successful full text search yields results
-def test_successful_full_text_search(client):
-    res = client.get("/?type=ft&term=I+Ching")
+# Test that a successful title search yields results
+def test_successful_title_search(client):
+    res = client.get("/?title=Jungle&author=&publisher=&registration=&renewal=")
     assert res.status_code == 200
-    assert b'<h2>Results</h2>' in res.data
-    # TODO: Convert to more intelligent solution using beautiful soup?
-    # page = BeautifulSoup(res.data, 'html.parser')
+    assert b'<div class = "results">' in res.data
 
-# Test that an unsuccessful full text search returns to the home screen
-def test_unsuccessful_full_text_search(client):
-    res = client.get("/?type=ft&term=blahblahblahblahblahblah")
+# Test that an unsuccessful title search renders an error message
+def test_unsuccessful_title_search(client):
+    res = client.get("/?title=blahhblahblahblah&author=&publisher=&registration=&renewal=")
     assert res.status_code == 200
-    result_page = BeautifulSoup(res.data, 'html.parser')
-    home_res = client.get("/")
-    home_page = BeautifulSoup(home_res.data, 'html.parser')
-    assert result_page.string == home_page.string
+    assert b'No results found. Please try another search.' in res.data
+
+# Test that a successful author search yields results
+def test_successful_author_search(client):
+    res = client.get("/?title=&author=Smith&publisher=&registration=&renewal=")
+    assert res.status_code == 200
+    assert b'<div class = "results">' in res.data
+
+# Test that an unsuccessful title search renders an error message
+def test_unsuccessful_author_search(client):
+    res = client.get("/?title=&author=IAMNOTANAUTHOR&publisher=&registration=&renewal=")
+    assert res.status_code == 200
+    assert b'No results found. Please try another search.' in res.data
+
+# Test that a successful publisher search yields results
+def test_successful_publisher_search(client):
+    res = client.get("/?title=&author=&publisher=Penguin&registration=&renewal=")
+    assert res.status_code == 200
+    assert b'<div class = "results">' in res.data
+
+# Test that an unsuccessful publisher search renders an error message
+def test_unsuccessful_publisher_search(client):
+    res = client.get("/?title=&author=&publisher=FAKEPUBLISHERINC&registration=&renewal=")
+    assert res.status_code == 200
+    assert b'No results found. Please try another search.' in res.data
 
 # Test that a successful registration number search yields results
 def test_successful_registration_number_search(client):
-    res = client.get("/?type=reg&term=A45173")
+    res = client.get("/?title=&author=&publisher=&registration=A45173&renewal=")
     assert res.status_code == 200
-    assert b'<h2>Results</h2>' in res.data
-    # TODO: Convert to more intelligent solution using beautiful soup?
-    # page = BeautifulSoup(res.data, 'html.parser')
+    assert b'<div class = "results">' in res.data
 
-# Test that an unsuccessful registration number search returns to the home screen
+# Test that an unsuccessful registration number search renders an error message
 def test_unsuccessful_registration_number_search(client):
-    res = client.get("/?type=reg&term=ThisIsNotARegistrationNumber")
+    res = client.get("/?title=&author=&publisher=&registration=NOTANUMBER&renewal=")
     assert res.status_code == 200
-    result_page = BeautifulSoup(res.data, 'html.parser')
-    home_res = client.get("/")
-    home_page = BeautifulSoup(home_res.data, 'html.parser')
-    assert result_page.string == home_page.string
+    assert b'No results found. Please try another search.' in res.data
     
 # Test that a successful renewal number search yields results
 def test_successful_renewal_number_search(client):
-    res = client.get("/?type=ren&term=R673507")
+    res = client.get("/?title=&author=&publisher=&registration=&renewal=R673507")
     assert res.status_code == 200
-    assert b'<h2>Results</h2>' in res.data
-    # TODO: Convert to more intelligent solution using beautiful soup?
-    # page = BeautifulSoup(res.data, 'html.parser')
+    assert b'<div class = "results">' in res.data
 
-# Test that an unsuccessful registration number search returns to the home screen
+# Test that an unsuccessful registration number search renders an error message
 def test_unsuccessful_renewal_number_search(client):
-    res = client.get("/?type=ren&term=ThisIsNotARenewalNumber")
+    res = client.get("/?title=&author=&publisher=&registration=&renewal=NOTANUMBER")
     assert res.status_code == 200
-    result_page = BeautifulSoup(res.data, 'html.parser')
-    home_res = client.get("/")
-    home_page = BeautifulSoup(home_res.data, 'html.parser')
-    assert result_page.string == home_page.string
+    assert b'No results found. Please try another search.' in res.data
