@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-{% if result["type"] %}
-{% include "search/new_renewal.html" %}
-{% else %}
 <div class="results">
+{% if result["type"] %}
+
+    {% include "search/new_renewal.html" %}
+{% else %}
     {% include "search/new_registration.html" %}
-</div>
 {% endif %}
+</div>
 {% endblock %}
   
