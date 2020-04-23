@@ -17,11 +17,15 @@ def index():
     sentTitle = None
     search_type = "ft"
     arguments = request.args.get("title") or request.args.get("renewal") or request.args.get("registration") or request.args.get("author") or request.args.get("publisher")
-    #print("TEST HERE")
-    #print(request.args)
-    #print(request.args.get("title"))
-    print("----------------------------------------------------------")
+    tempResults = None
+    tempPaging = None
+    tempArgs = None
+    
     unique = 0
+    max_page = 0
+
+    author = None
+    publisher = None
     
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
@@ -32,7 +36,6 @@ def index():
                 paging = proc_pagination(results['data']['paging'], request.args.get('page'))    
                 unique = 1
         
-        
         if request.args.get("registration") and unique == 0:
                 results = reg_search(request.args['registration'], request.args.get('page'),
                     request.args.get('per_page'))
@@ -41,32 +44,55 @@ def index():
         
         if request.args.get("title") and unique == 0:
             title = request.args['title']
-            results = search(title, request.args.get('page'),
+            print("----------------------------------------------------------")
+            print(request.args.get('page'))
+            print(request.args.get('per_page'))
+            tempResults = search(title, request.args.get('page'),
                 request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
+            tempPaging = proc_pagination(tempResults['data']['paging'],
                 request.args.get('page'))
-        
+            max_page = tempPaging['last_page']
+            results = tempResults
+            paging = tempPaging
+            tempArgs = request.args['title']
+            
         
         if request.args.get("author") and unique == 0:
-            results = search(request.args['author'], request.args.get('page'),
+            author = request.args['author']
+            tempResults = search(author, request.args.get('page'),
                     request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
+            tempPaging = proc_pagination(tempResults['data']['paging'],
                 request.args.get('page'))
+            if max_page > tempPaging['last_page'] or max_page == 0:
+                max_page = tempPaging['last_page']
+                results = tempResults
+                paging = tempPaging
+                tempArgs = request.args['author']
         
         
         if request.args.get("publisher") and unique == 0:
-            results = search(request.args['publisher'], request.args.get('page'),
+            publisher = request.args['publisher']
+            tempResults = search(publisher, request.args.get('page'),
                     request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
+            tempPaging = proc_pagination(tempResults['data']['paging'],
                 request.args.get('page'))
-        #paging = proc_pagination(results['data']['paging'],
-        #    request.args.get('page'))
+            if max_page > tempPaging['last_page'] or max_page == 0:
+                max_page = tempPaging['last_page']
+                results = tempResults
+                paging = tempPaging
+                tempArgs = request.args['publisher']
         
+        if max_page != 0:
+            print("----------------------------------------------------------")
+            #procResults = proc_results(search(tempArgs, 0, results['data']['total']))
+            #print(procResults)
+
+
         print("PRINTING PAGING HERE")
-        print(paging) 
-                           
+        #print(paging)   
+        print(results['data']['total'])              
         results = proc_results(results)
-        print(results)
+        #print(results)
         
         if results == []:
             print("NO RESULTS")
