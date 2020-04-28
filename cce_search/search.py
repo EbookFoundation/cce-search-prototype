@@ -6,6 +6,7 @@ import re
 from urllib.parse import urlparse, parse_qs, parse_qsl, urlunparse, urlencode
 from werkzeug.exceptions import abort
 from requests import HTTPError
+import json
 
 bp = Blueprint('search', __name__)
 
@@ -44,9 +45,6 @@ def index():
         
         if request.args.get("title") and unique == 0:
             title = request.args['title']
-            print("----------------------------------------------------------")
-            print(request.args.get('page'))
-            print(request.args.get('per_page'))
             tempResults = search(title, request.args.get('page'),
                 request.args.get('per_page'))
             tempPaging = proc_pagination(tempResults['data']['paging'],
@@ -82,17 +80,62 @@ def index():
                 paging = tempPaging
                 tempArgs = request.args['publisher']
         
-        if max_page != 0:
-            print("----------------------------------------------------------")
-            #procResults = proc_results(search(tempArgs, 0, results['data']['total']))
-            #print(procResults)
+        #Modifed Search Functionality
+        # matched_results = []
+        # for i in range(max_page):
+        #     pageResults = proc_results(search(tempArgs, i, 10))
+        #     for obj in pageResults:
+        #         match_author = False
+        #         match_title = False
+        #         match_publisher = False
+        #         if(title!=None):
+        #             if(re.search(title, obj['title'], re.IGNORECASE)):
+        #                 match_title = True
+        #         else:
+        #             match_title = True    
+                
+        #         if("type" in obj):
+        #             if(author!=None):
+        #                 if(re.search(author, obj['author'], re.IGNORECASE)):
+        #                     match_author = True
+        #             else:
+        #                 match_author = True
+
+        #         else:
+        #             if(author!=None):
+        #                 for a in obj['authors']:
+        #                     if(re.search(author, a, re.IGNORECASE)):
+        #                         match_author = True
+        #                         break
+        #             else:
+        #                 match_author = True
+                    
+        #             if(publisher!=None):
+        #                 for p in obj['publishers']:
+        #                     if(re.search(publisher, p, re.IGNORECASE)):
+        #                         match_publisher = True
+        #                         break
+        #             else:
+        #                 match_publisher = True
+
+        #         if(match_author and match_title and match_publisher):
+        #             matched_results.append(obj)
+        
+        # print(json.dumps(matched_results))
+        # print(len(matched_results))
+        # if max_page != 0:
+            # print("----------------------------------------------------------")
+            # procResults = proc_results(search(tempArgs, 0, results['data']['total']))
+            # print(procResults)
 
 
-        print("PRINTING PAGING HERE")
-        #print(paging)   
-        print(results['data']['total'])              
+        # print("PRINTING PAGING HERE")
+        # print(paging)
+        # print("----------------------------------------------------------")
+        # print("DATA PAGING")
+        # print(results['data']['paging'])              
         results = proc_results(results)
-        #print(results)
+        # print(json.dumps(results))
         
         if results == []:
             print("NO RESULTS")
