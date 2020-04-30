@@ -21,6 +21,9 @@ def index():
     tempResults = None
     tempPaging = None
     tempArgs = None
+    matched_results = []
+
+    newResults = None
     
     unique = 0
     max_page = 0
@@ -30,6 +33,7 @@ def index():
     
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
+        return render_template('search/index.html', results=results, term=title, paging=paging, search_type=search_type)
     else:
         if request.args.get("renewal"):
                 results = ren_search(request.args['renewal'], request.args.get('page'),
@@ -81,52 +85,59 @@ def index():
                 tempArgs = request.args['publisher']
         
         #Modifed Search Functionality
-        # matched_results = []
-        # for i in range(max_page):
-        #     pageResults = proc_results(search(tempArgs, i, 10))
-        #     for obj in pageResults:
-        #         match_author = False
-        #         match_title = False
-        #         match_publisher = False
-        #         if(title!=None):
-        #             if(re.search(title, obj['title'], re.IGNORECASE)):
-        #                 match_title = True
-        #         else:
-        #             match_title = True    
-                
-        #         if("type" in obj):
-        #             if(author!=None):
-        #                 if(re.search(author, obj['author'], re.IGNORECASE)):
-        #                     match_author = True
-        #             else:
-        #                 match_author = True
-
-        #         else:
-        #             if(author!=None):
-        #                 for a in obj['authors']:
-        #                     if(re.search(author, a, re.IGNORECASE)):
-        #                         match_author = True
-        #                         break
-        #             else:
-        #                 match_author = True
-                    
-        #             if(publisher!=None):
-        #                 for p in obj['publishers']:
-        #                     if(re.search(publisher, p, re.IGNORECASE)):
-        #                         match_publisher = True
-        #                         break
-        #             else:
-        #                 match_publisher = True
-
-        #         if(match_author and match_title and match_publisher):
-        #             matched_results.append(obj)
         
-        # print(json.dumps(matched_results))
-        # print(len(matched_results))
-        # if max_page != 0:
-            # print("----------------------------------------------------------")
-            # procResults = proc_results(search(tempArgs, 0, results['data']['total']))
-            # print(procResults)
+        for i in range(max_page):
+            pageResults = proc_results(search(tempArgs, i, 10))
+            for obj in pageResults:
+                match_author = False
+                match_title = False
+                match_publisher = False
+                if(title!=None):
+                    if(re.search(title, obj['title'], re.IGNORECASE)):
+                        match_title = True
+                else:
+                    match_title = True    
+                
+                if("type" in obj):
+                    if(author!=None):
+                        if(re.search(author, obj['author'], re.IGNORECASE)):
+                            match_author = True
+                    else:
+                        match_author = True
+
+                else:
+                    if(author!=None):
+                        for a in obj['authors']:
+                            if(re.search(author, a, re.IGNORECASE)):
+                                match_author = True
+                                break
+                    else:
+                        match_author = True
+                    
+                    if(publisher!=None):
+                        for p in obj['publishers']:
+                            if(re.search(publisher, p, re.IGNORECASE)):
+                                match_publisher = True
+                                break
+                    else:
+                        match_publisher = True
+
+                if(match_author and match_title and match_publisher):
+                    matched_results.append(obj)
+        print(results)
+        print("__________________________________________________________")
+        print(json.dumps(matched_results))
+        print(type(matched_results))
+        print(len(matched_results))
+        
+        #tempPaging = new_pagination(matched_results['data']['paging'], request.args.get('page'))
+        #print(tempPaging)
+        
+        if max_page != 0:
+            print("----------------------------------------------------------")
+            #newResults = proc_results(matched_results)
+            procResults = proc_results(search(tempArgs, 0, results['data']['total']))
+            print(type(procResults))
 
 
         # print("PRINTING PAGING HERE")
@@ -142,8 +153,22 @@ def index():
             noresults = 1
             return render_template('search/index.html', noresults=noresults)
     
-    return render_template('search/index.html', results=results, term=title,
-            paging=paging, search_type=search_type)
+    if unique == 1:
+        return render_template('search/index.html', results=results, term=title,paging=paging, search_type=search_type)
+    
+    return render_template('results.html', results=matched_results)
+
+
+def new_pagination(pg, current):
+    if not pg['next'] and not pg['previous']:
+        return {**pg, **{'has_pages': False}}
+
+    per_page = extract_per_page(pg)
+
+    if current is None:
+        current = 1
+    else:
+        current = int(current) + 1
 
 
 def proc_results(r):
