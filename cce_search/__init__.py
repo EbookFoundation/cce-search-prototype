@@ -39,7 +39,10 @@ def create_app(test_config=None):
     @app.route('/results')
     def results():
         return render_template('results.html')
-
+    
+    @app.route('/help')
+    def help():
+        return render_template('help.html')
 
     # a simple page that says hello
     @app.route('/registration-classes')
