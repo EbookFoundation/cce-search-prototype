@@ -1,16 +1,6 @@
 from flask import current_app, g
 import requests
 
-def new_search(param, page=0, per_page=10):
-    r = requests.get(current_app.config['API'] + '/search/multi',
-                     params={'title': param["title"],
-                             'authors': param["authors"],
-                             'publishers': param["publishers"],
-                             'source': 'true',
-                             'page': page,
-                             'per_page': per_page})
-    return r.json()
-
 def search(term, page=0, per_page=10):
     r = requests.get(current_app.config['API'] + '/search/fulltext',
                      params={'query': term,
