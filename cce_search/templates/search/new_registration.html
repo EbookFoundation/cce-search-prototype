@@ -63,9 +63,6 @@
         <tr>
             <th scope="row">Renewals</th>
             <td>
-                {% if result['is_post_1963'] %}
-                    <em>Works published after 1963 do not require renewal and are in copyright</em>
-                {% else %}
                 {% if result['renewals'] %}
                 {% for renewal in result['renewals'] %}
                     {% include "search/render_child_renewal.html" %}
@@ -73,7 +70,7 @@
                 {% else %}
                     <em>No renewals found</em>
                 {% endif %}
-                {% endif %}
+
                 {% if result['is_foreign'] %}
                 <br>See note on <a href="/registration-classes#foreign">Foreign publications</a>
                 {% endif %}
