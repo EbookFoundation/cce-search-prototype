@@ -8,7 +8,8 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         #DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-        API='http://sfr-bardo-copyright-development.us-east-1.elasticbeanstalk.com',
+        API='http://localhost:5000/',
+        # API='http://sfr-bardo-copyright-development.us-east-1.elasticbeanstalk.com',
     )
 
     if test_config is None:
@@ -34,11 +35,10 @@ def create_app(test_config=None):
     @app.route('/about')
     def about():
         return render_template('about.html')
-
-    @app.route('/results')
-    def results():
-        return render_template('results.html')
-
+    
+    @app.route('/help')
+    def help():
+        return render_template('help.html')
 
     # a simple page that says hello
     @app.route('/registration-classes')

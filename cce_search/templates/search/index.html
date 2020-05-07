@@ -5,11 +5,15 @@
 {% if results %}
   {% include "search/paging.html" %}
     {% for result in results %}
-    <div class = "results">
-        <!-- {% include "search/render_registration.html" %} -->
+    <div class="results">
+    {% if result['type'] %}
+        {% include "search/new_renewal.html" %}
+      {% else %}
         {% include "search/new_registration.html" %}
+      {% endif %}
     </div>
     {% endfor %}
+    {% include "search/paging.html" %}
 {% else %}
 
 

@@ -1,4 +1,4 @@
-from cce_search.api import search, reg_search, ren_search, registration, renewal
+from cce_search.api import search, reg_search, ren_search, new_search, registration, renewal
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -6,6 +6,7 @@ import re
 from urllib.parse import urlparse, parse_qs, parse_qsl, urlunparse, urlencode
 from werkzeug.exceptions import abort
 from requests import HTTPError
+import json
 
 bp = Blueprint('search', __name__)
 
@@ -17,56 +18,59 @@ def index():
     sentTitle = None
     search_type = "ft"
     arguments = request.args.get("title") or request.args.get("renewal") or request.args.get("registration") or request.args.get("author") or request.args.get("publisher")
-    #print("TEST HERE")
-    #print(request.args)
-    #print(request.args.get("title"))
-    print("----------------------------------------------------------")
+    tempResults = None
+    tempPaging = None
+    tempArgs = None
+    matched_results = []
+    params = {}
     unique = 0
+    max_page = 0
+
+    author = None
+    publisher = None
     
     if not arguments:
         print("NO ARGUMENTS GIVEN. PLEASE GIVE ARGUMENTS")
     else:
         if request.args.get("renewal"):
-                results = ren_search(request.args['renewal'], request.args.get('page'),
-                    request.args.get('per_page'))
+                results = ren_search(request.args['renewal'], request.args.get('page'), request.args.get('per_page'))
                 paging = proc_pagination(results['data']['paging'], request.args.get('page'))    
                 unique = 1
         
-        
         if request.args.get("registration") and unique == 0:
-                results = reg_search(request.args['registration'], request.args.get('page'),
-                    request.args.get('per_page'))
+                results = reg_search(request.args['registration'], request.args.get('page'), request.args.get('per_page'))
                 paging = proc_pagination(results['data']['paging'], request.args.get('page'))
-                unique = 1 #technically not 100% unique but should be very simplified for now
+                unique = 1
         
-        if request.args.get("title") and unique == 0:
-            title = request.args['title']
-            results = search(title, request.args.get('page'),
-                request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
-                request.args.get('page'))
-        
+        if request.args.get("title") and unique==0:
+            params["title"] = request.args['title']
+        else:
+            params["title"] = "*"
         
         if request.args.get("author") and unique == 0:
-            results = search(request.args['author'], request.args.get('page'),
-                    request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
-                request.args.get('page'))
-        
-        
-        if request.args.get("publisher") and unique == 0:
-            results = search(request.args['publisher'], request.args.get('page'),
-                    request.args.get('per_page'))
-            paging = proc_pagination(results['data']['paging'],
-                request.args.get('page'))
-        #paging = proc_pagination(results['data']['paging'],
-        #    request.args.get('page'))
-        
-        print("PRINTING PAGING HERE")
-        print(paging) 
-                           
+            params["authors"] = request.args['author']
+        else:
+            params["authors"] = "*"
+
+        if request.args.get("publisher") and unique==0:
+            params['publishers'] = request.args['publisher']
+        else:
+            params["publishers"] = "*"
+
+        if unique==0:
+            results = new_search(params, request.args.get('page'), request.args.get('per_page'))
+            paging = proc_pagination(results['data']['paging'], request.args.get('page'))
+
+        # print("PRINTING PAGING HERE")
+        # print(paging)
+        # print("----------------------------------------------------------")
+        # print("DATA PAGING")
+        # print(results['data']['paging'])    
+        # print(json.dumps(results))
+        # print("")
         results = proc_results(results)
-        print(results)
+        print(json.dumps(results))
+        print(json.dumps(results[0]["renewals"]))
         
         if results == []:
             print("NO RESULTS")
